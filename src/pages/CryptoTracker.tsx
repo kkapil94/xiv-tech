@@ -2,8 +2,8 @@ import { useEffect, useState, useMemo } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { ArrowDown, ArrowUp } from "lucide-react";
 import { AreaChart, Area, ResponsiveContainer, YAxis } from "recharts";
-import { updateCryptoData, CryptoAsset } from "../store/slices/cryptoSlice";
-import { MockWebSocket } from "../utils/mockWebsocket";
+import { CryptoAsset } from "../store/slices/cryptoSlice";
+import { BinanceWebSocket } from "../utils/binanceWebSocket";
 import { store, RootState } from "../store";
 import { clearState } from "../utils/localStorage";
 
@@ -15,8 +15,8 @@ interface SortConfig {
 
 type FilterOption = "all" | "gainers" | "losers";
 
-// Mock WebSocket instance
-const mockWs = new MockWebSocket();
+// Binance WebSocket instance
+const binanceWs = new BinanceWebSocket();
 
 const CryptoTracker = () => {
   const dispatch = useDispatch();
@@ -31,18 +31,12 @@ const CryptoTracker = () => {
     // Clear localStorage to force new image paths
     clearState();
 
-    // Start the mock WebSocket connection
-    const unsubscribe = mockWs.subscribe((data) => {
-      dispatch(updateCryptoData(data));
-    });
-
-    // Connect to the WebSocket and pass the store
-    mockWs.connect(store);
+    // Connect to the Binance WebSocket
+    binanceWs.connect(store);
 
     // Cleanup on unmount
     return () => {
-      unsubscribe();
-      mockWs.disconnect();
+      binanceWs.disconnect();
     };
   }, [dispatch]);
 

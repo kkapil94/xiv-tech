@@ -29,29 +29,6 @@ export interface CryptoState {
   error: string | null;
 }
 
-// Generate mock chart data
-const generateChartData = (
-  length: number,
-  trend: "up" | "down" | "volatile"
-): number[] => {
-  const data: number[] = [];
-  let value = 100 + Math.random() * 50;
-
-  for (let i = 0; i < length; i++) {
-    if (trend === "up") {
-      value += Math.random() * 5;
-    } else if (trend === "down") {
-      value -= Math.random() * 5;
-    } else {
-      value += (Math.random() - 0.5) * 10;
-    }
-    value = Math.max(50, value);
-    data.push(value);
-  }
-
-  return data;
-};
-
 // Initial state with sample crypto assets
 const initialState: CryptoState = {
   assets: [
@@ -61,15 +38,15 @@ const initialState: CryptoState = {
       name: "Bitcoin",
       symbol: "BTC",
       image: "/btc.png",
-      price: 48235.75,
-      priceChange1h: 0.5,
-      priceChange24h: 2.3,
-      priceChange7d: 5.7,
-      marketCap: 929782835298,
-      volume24h: 28735982735,
+      price: 0,
+      priceChange1h: 0,
+      priceChange24h: 0,
+      priceChange7d: 0,
+      marketCap: 0,
+      volume24h: 0,
       circulatingSupply: 19283726,
       maxSupply: 21000000,
-      chartData: generateChartData(24, "up"),
+      chartData: Array(24).fill(0),
     },
     {
       id: "ethereum",
@@ -77,31 +54,31 @@ const initialState: CryptoState = {
       name: "Ethereum",
       symbol: "ETH",
       image: "/eth.png",
-      price: 2532.46,
-      priceChange1h: -0.2,
-      priceChange24h: 1.8,
-      priceChange7d: -3.2,
-      marketCap: 304598234509,
-      volume24h: 14536982342,
+      price: 0,
+      priceChange1h: 0,
+      priceChange24h: 0,
+      priceChange7d: 0,
+      marketCap: 0,
+      volume24h: 0,
       circulatingSupply: 120293847,
       maxSupply: null,
-      chartData: generateChartData(24, "volatile"),
+      chartData: Array(24).fill(0),
     },
     {
-      id: "tether",
+      id: "xrp",
       rank: 3,
-      name: "Tether",
-      symbol: "USDT",
-      image: "/teth.png",
-      price: 1.0,
-      priceChange1h: 0.01,
-      priceChange24h: 0.05,
-      priceChange7d: -0.02,
-      marketCap: 83547239583,
-      volume24h: 67823459230,
-      circulatingSupply: 83547239583,
-      maxSupply: null,
-      chartData: generateChartData(24, "volatile"),
+      name: "XRP",
+      symbol: "XRP",
+      image: "/xrp.png", // temporarily using BTC icon until XRP icon is provided
+      price: 0,
+      priceChange1h: 0,
+      priceChange24h: 0,
+      priceChange7d: 0,
+      marketCap: 0,
+      volume24h: 0,
+      circulatingSupply: 46800000000,
+      maxSupply: 100000000000,
+      chartData: Array(24).fill(0),
     },
     {
       id: "bnb",
@@ -109,15 +86,15 @@ const initialState: CryptoState = {
       name: "BNB",
       symbol: "BNB",
       image: "/bn.jpeg",
-      price: 382.75,
-      priceChange1h: 0.8,
-      priceChange24h: -1.2,
-      priceChange7d: 3.5,
-      marketCap: 59283475293,
-      volume24h: 1983247593,
+      price: 0,
+      priceChange1h: 0,
+      priceChange24h: 0,
+      priceChange7d: 0,
+      marketCap: 0,
+      volume24h: 0,
       circulatingSupply: 154932651,
       maxSupply: 200000000,
-      chartData: generateChartData(24, "up"),
+      chartData: Array(24).fill(0),
     },
     {
       id: "solana",
@@ -125,15 +102,15 @@ const initialState: CryptoState = {
       name: "Solana",
       symbol: "SOL",
       image: "/sol.png",
-      price: 89.32,
-      priceChange1h: 1.2,
-      priceChange24h: 4.5,
-      priceChange7d: 12.3,
-      marketCap: 37592837465,
-      volume24h: 2938475632,
+      price: 0,
+      priceChange1h: 0,
+      priceChange24h: 0,
+      priceChange7d: 0,
+      marketCap: 0,
+      volume24h: 0,
       circulatingSupply: 420837465,
       maxSupply: null,
-      chartData: generateChartData(24, "up"),
+      chartData: Array(24).fill(0),
     },
   ],
   status: "idle",
