@@ -1,11 +1,32 @@
-// src/store/index.ts
 import { configureStore } from "@reduxjs/toolkit";
+import cryptoReducer, { CryptoState } from "./slices/cryptoSlice";
+import { loadState, saveState, clearState } from "../utils/localStorage";
 
-// Load persisted state from localStorage
+export interface RootState {
+  crypto: CryptoState;
+}
 
-export const store = configureStore({
-  reducer: {},
+clearState();
+
+const persistedState = loadState();
+
+export const store = configureStore<RootState>({
+  reducer: {
+    crypto: cryptoReducer,
+  },
+  preloadedState: persistedState,
 });
 
-export type RootState = ReturnType<typeof store.getState>;
+let timeoutId: ReturnType<typeof setTimeout>;
+store.subscribe(() => {
+  if (timeoutId) {
+    clearTimeout(timeoutId);
+  }
+  timeoutId = setTimeout(() => {
+    saveState({
+      crypto: store.getState().crypto,
+    });
+  }, 1000);
+});
+
 export type AppDispatch = typeof store.dispatch;

@@ -1,7 +1,9 @@
+import CryptoTracker from "./pages/CryptoTracker";
+
 export default function App() {
   return (
     <>
-      <div className="bg-red-500">Done</div>
+      <CryptoTracker />
     </>
   );
 }
